@@ -113,18 +113,15 @@ const updateUI = function (acc) {
   displayBalance(acc);
   displaySummary(acc);
 };
-//console.log(accounts);
+
 let currentAccount;
 btnLogin.addEventListener('click', function (e) {
   e.preventDefault();
-  // console.log('click captured');
   currentAccount = accounts.find(
     acc => acc.UserName === inputLoginUsername.value
   );
-  // if (currentAccount) console.log(`account found`);
-  // console.log(`${currentAccount?.pin},${inputLoginPin.value}`);
+
   if (currentAccount?.pin === Number(inputLoginPin.value)) {
-    // console.log('pin matched');
     errorbox.classList.add('conceal');
     labelWelcome.textContent = `Welcome back, ${
       currentAccount.owner.split(' ')[0]
@@ -156,7 +153,6 @@ btnLogin.addEventListener('click', function (e) {
       currentAccount.movements.push(-amount);
       recieverAcc.movements.push(amount);
       updateUI(currentAccount);
-      // console.log('transfer done');
     }
   });
   btnClose.addEventListener('click', function (e) {
@@ -195,8 +191,6 @@ btnLogin.addEventListener('click', function (e) {
     sorted = !sorted;
   });
   labelBalance.addEventListener('click', function () {
-    // console.log(document.querySelectorAll('.movements__value'));
-    // console.log(document.querySelectorAll('.movements__value').textContent);
     const movements = Array.from(
       document.querySelectorAll('.movements__value'),
       el => Number(el.textContent.replace('Rs.', ''))
@@ -204,124 +198,3 @@ btnLogin.addEventListener('click', function (e) {
     console.log(movements);
   });
 });
-
-/////////////////////////////////////////////////
-/////////////////////////////////////////////////
-// LECTURES
-// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-// console.log(
-//   movements.reduce((acc, mov) => {
-//     if (mov > acc) return acc;
-//     else return mov;
-//   }, movements[0])
-// );
-// const movementsInEuro = movements.map(mov => mov * 1.1);
-// console.log(movementsInEuro);
-
-/////////////////////////////////////////////////
-// const arr = ['a', 'b', 'c', 'd', 'e'];
-// console.log(arr.slice(2));
-// console.log(arr.slice(0, 3));
-// console.log(arr.splice(0, 3));
-// console.log(arr);
-// const arr2 = ['1', '2', '3', '4', '5'];
-// console.log(arr2.slice(-2));
-// console.log(arr2.splice(-2));
-// console.log('spliced array', arr2);
-// console.log(arr2.splice(2));
-// console.log('spliced array', arr2);
-// console.log(arr.concat(arr2));
-
-// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-// movements.forEach(function (mov, i) {
-//   mov > 0
-//     ? console.log(`Movement ${i + 1}: You have Deposited ${mov}`)
-//     : console.log(`Movement ${i + 1}: You have Withdrew ${Math.abs(mov)}`);
-// });
-// const currencies = new Map([
-//   ['USD', 'United States dollar'],
-//   ['EUR', 'Euro'],
-//   ['GBP', 'Pound sterling'],
-// ]);
-// currencies.forEach(function (val, key, map) {
-//   console.log(key, '-', val);
-// });
-
-//CODING CHALLENGE 2
-// const calcHumanAges = function (dogs) {
-//   const humanAges = dogs.map(dogAge =>
-//     dogAge <= 2 ? dogAge * 2 : 16 + dogAge * 4
-//   );
-//   console.log(humanAges);
-//   const adultDogs = humanAges.filter(dogsAge => dogsAge >= 18);
-//   console.log(adultDogs);
-//   const sum = adultDogs.reduce((acc, cur) => acc + cur, 0);
-//   console.log(`Average: ${Math.trunc(sum / adultDogs.length)}`);
-// };
-// calcHumanAges([5, 2, 4, 1, 15, 8, 3]);
-// calcHumanAges([16, 6, 10, 5, 6, 1, 4]);
-
-// const arr = new Array(7);
-// console.log(arr);
-// //console.log(arr.fill(5));
-// console.log(arr.fill(1, 2, 4));
-// const titleCase = function (string) {
-//   const exceptions = ['is', 'and', 'the', 'a', 'on', 'up', 'at', 'in'];
-//   const capitalize = word => word[0].toUpperCase() + word.slice(1);
-//   const title = string
-//     .toLowerCase()
-//     .split(' ')
-//     .map(word => (exceptions.includes(word) ? word : capitalize(word)))
-//     .join(' ');
-//   return title;
-// };
-// console.log(titleCase('siri is a beautiful women'));
-// console.log(titleCase('bhayya ji thoda PYASS tho dalo'));
-// console.log(titleCase('akbar and birbal with his witt'));
-
-//coding challenge 4
-const dogs = [
-  { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
-  { weight: 8, curFood: 200, owners: ['Matilda'] },
-  { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
-  { weight: 32, curFood: 340, owners: ['Michael'] },
-];
-//1
-const calcRecc = dog => Math.trunc(dog.weight ** 0.75 * 28);
-dogs.forEach(dog => (dog.recommendedFood = calcRecc(dog)));
-console.log(dogs);
-//2
-const sarahDog = dogs.find(dog => dog.owners.includes('Sarah'));
-const type = sarahDog.curFood > sarahDog.recommendedFood ? 'much' : 'little';
-console.log(`Sarah Dog is eating too ${type}`);
-//3
-const ownersTooMuch = dogs
-  .filter(dog => dog.curFood > dog.recommendedFood)
-  .map(dog => dog.owners)
-  .flat();
-const ownersTooLittle = dogs
-  .filter(dog => dog.curFood < dog.recommendedFood)
-  .map(dog => dog.owners)
-  .flat();
-console.log(ownersTooLittle);
-console.log(ownersTooMuch);
-//4
-const consoleprint = (arr, type) =>
-  console.log(`${arr[0]} and ${arr[1]} and ${arr[2]}'s dogs eat too ${type}`);
-consoleprint(ownersTooLittle, 'little');
-consoleprint(ownersTooMuch, 'much');
-//5
-console.log(dogs.some(dog => dog.curFood === dog.recommendedFood));
-//6
-
-const okayDogs = dogs.filter(
-  dog =>
-    dog.curFood > dog.recommendedFood * 0.9 &&
-    dog.curFood < dog.recommendedFood * 1.1
-);
-console.log(okayDogs);
-//7
-const dogAscending = dogs
-  .slice()
-  .sort((a, b) => a.recommendedFood - b.recommendedFood);
-console.log(dogAscending);
