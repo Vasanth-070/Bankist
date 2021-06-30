@@ -1,5 +1,6 @@
 # Bankist
 Bankist is a demo website which handles the money transactions between accounts operated from any part of the world.
+(Please switch to main branch for the code)
 Bankist offers,
 1. Send money.
 2. Request Loan.
