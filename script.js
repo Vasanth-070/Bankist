@@ -158,7 +158,7 @@ const calcMovementDates = function (date, locale) {
   }
 };
 createUserNames(accounts);
-const displayMovements = function (movements, sort = false) {
+const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
   const movs = sort
     ? acc.movements.slice().sort((a, b) => a - b)
@@ -204,7 +204,7 @@ const displaySummary = function (acc) {
   labelSumInterest.textContent = `Rs.${interest}`;
 };
 const updateUI = function (acc) {
-  displayMovements(acc.movements);
+  displayMovements(acc);
   displayBalance(acc);
   displaySummary(acc);
 };
